@@ -57,40 +57,52 @@ namespace WebCrawler
             {
                 //BrowserDelay = new TimeSpan(0, 0, 0, 1, 0)
             };
-            var document = web.LoadFromBrowser(searchURL);
-            //var document = web.LoadFromBrowser(searchURL, ParseHtml);
+
+
+            Console.WriteLine("before load");
+            //var document = web.LoadFromBrowser(searchURL);
+            var document = web.LoadFromBrowser(searchURL, IsFullyLoaded);
+            Console.WriteLine("after load");
 
             // Each search result article is a div with class cnn-search__result--article
             // Find all articles
             var searchResultarticles = document.DocumentNode.SelectNodes("//div[contains(@class, 'cnn-search__result--article')]");
+            
+
 
             if (searchResultarticles != null)
             {
+                var articles = new List<CNNSearchResultArticle>();
+
                 // Create entity from each html result item
                 foreach (var item in searchResultarticles)
                 {
                     CNNSearchResultArticle article = new CNNSearchResultArticle();
 
-                    article.Thumbnail = item.SelectSingleNode("//div[@class='cnn-search__result-thumbnail']/a/img/@src").InnerText;
-                    article.Title = item.SelectSingleNode("//h3[@class='cnn-search__result-headline']/a").InnerText;
-                    article.URL = item.SelectSingleNode("//h3[@class='cnn-search__result-headline']/a/@href").InnerText;
-                    article.PublishDate = DateTime.Parse(item.SelectSingleNode("//div[@class='cnn-search__result-publish-date']/span[2]").InnerText);
+                    article.Thumbnail = item.SelectSingleNode(".//div[@class='cnn-search__result-thumbnail']/a/img").GetAttributeValue("src", null);
+                    article.Title = item.SelectSingleNode(".//h3[@class='cnn-search__result-headline']/a").InnerText;
+                    article.Body = item.SelectSingleNode(".//div[@class='cnn-search__result-body']").InnerText.TrimStart(); 
+                    article.URL = item.SelectSingleNode(".//h3[@class='cnn-search__result-headline']/a").GetAttributeValue("href", null);
+                    article.PublishDate = DateTime.Parse(item.SelectSingleNode(".//div[@class='cnn-search__result-publish-date']/span[2]").InnerText);
 
                     Console.WriteLine(article);
+
+                    articles.Add(article);
                 }
+
+                return articles;
             }
 
             return null;
         }
 
-        public bool ParseHtml(Object sender)
+        public bool IsFullyLoaded(Object sender)
         {
-            var webBrowser = (System.Windows.Forms.WebBrowser)sender;
-            
-            // WAIT until the dynamic text is set
-           // return !string.IsNullOrEmpty(webBrowser.Document.GetElementsByTagName.GetElementById("uiDynamicText").InnerText);
-            //System.Threading.Thread.Sleep(500);
-            return true;
+            var webBrowser = (System.Windows.Forms.WebBrowser) sender;
+
+            Console.WriteLine("Checking if page is fully loaded...");
+
+            return !webBrowser.IsBusy;
         }
     }
 }

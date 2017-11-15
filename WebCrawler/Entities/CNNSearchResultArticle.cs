@@ -13,6 +13,7 @@ namespace WebCrawler.Entities
         /// </summary>
         public string Thumbnail { get; set; }
         public string Title { get; set; }
+        public string Body { get; set; }
         public DateTime PublishDate { get; set; }
 
         /// <summary>
@@ -22,7 +23,8 @@ namespace WebCrawler.Entities
 
         public override string ToString()
         {
-            return "Title: " + Title + " PublishDate: " + PublishDate + " URL: " + URL;
+            return "Title: " + Title + " PublishDate: " + PublishDate + " URL: " + URL + " Thumbnail: " + Thumbnail + " Body: " + Body.Substring(0, 10);
         }
+
     }
 }
