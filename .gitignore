@@ -1,0 +1,8 @@
+/*.suo
+packages
+/bin
+TrumpNews/bin/
+TrumpNews/obj/
+TrumpNews/TrumpNews.csproj.user
+WebCrawler/obj/
+WebCrawler/bin/
