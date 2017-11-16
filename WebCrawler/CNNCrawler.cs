@@ -55,21 +55,21 @@ namespace WebCrawler
             // Create a browser
             HtmlWeb web = new HtmlWeb()
             {
-                //BrowserDelay = new TimeSpan(0, 0, 0, 1, 0)
+                //BrowserDelay = new TimeSpan(0, 0, 0, 10, 0),
+                //BrowserTimeout = new TimeSpan(0, 0, 0, 30, 0)
             };
 
 
             Console.WriteLine("before load");
             //var document = web.LoadFromBrowser(searchURL);
             var document = web.LoadFromBrowser(searchURL, IsFullyLoaded);
+
             Console.WriteLine("after load");
 
             // Each search result article is a div with class cnn-search__result--article
             // Find all articles
             var searchResultarticles = document.DocumentNode.SelectNodes("//div[contains(@class, 'cnn-search__result--article')]");
             
-
-
             if (searchResultarticles != null)
             {
                 var articles = new List<CNNSearchResultArticle>();
@@ -85,7 +85,7 @@ namespace WebCrawler
                     article.URL = item.SelectSingleNode(".//h3[@class='cnn-search__result-headline']/a").GetAttributeValue("href", null);
                     article.PublishDate = DateTime.Parse(item.SelectSingleNode(".//div[@class='cnn-search__result-publish-date']/span[2]").InnerText);
 
-                    Console.WriteLine(article);
+                    //Console.WriteLine(article);
 
                     articles.Add(article);
                 }
@@ -102,7 +102,7 @@ namespace WebCrawler
 
             Console.WriteLine("Checking if page is fully loaded...");
 
-            return !webBrowser.IsBusy;
+            return !webBrowser.IsBusy && webBrowser.ReadyState == System.Windows.Forms.WebBrowserReadyState.Complete;
         }
     }
 }

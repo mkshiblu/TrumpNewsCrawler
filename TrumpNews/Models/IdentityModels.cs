@@ -13,5 +13,7 @@ namespace TrumpNews.Models
             : base("DefaultConnection")
         {
         }
+
+       // public System.Data.Entity.DbSet<TrumpNews.Models.Article> Articles { get; set; }
     }
 }

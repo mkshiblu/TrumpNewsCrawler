@@ -7,24 +7,25 @@ namespace WebCrawler
         [STAThread]
         static void Main(string[] args)
         {
-           // IronScrapperDemo.Start(null);
+            // IronScrapperDemo.Start(null);
 
-            
+
             CNNCrawler cnn = new CNNCrawler()
             {
                 Keyword = "Donald Trump",
                 NumberOfArticles = 25
             };
-            
+
             var x = cnn.GetSearchResult();
 
-            /*
-            foreach (var item in x)
+            if (x != null)
             {
-                Console.WriteLine(item);
-            }*/
-            
-            Console.WriteLine("kjas");
+                foreach (var item in x)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            Console.WriteLine("Process End");
             Console.ReadKey();
         }
     }

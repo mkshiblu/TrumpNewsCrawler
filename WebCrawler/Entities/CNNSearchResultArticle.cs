@@ -23,7 +23,7 @@ namespace WebCrawler.Entities
 
         public override string ToString()
         {
-            return "Title: " + Title + " PublishDate: " + PublishDate + " URL: " + URL + " Thumbnail: " + Thumbnail + " Body: " + Body.Substring(0, 10);
+            return "Title: " + Title + " PublishDate: " + PublishDate + " URL: " + URL;
         }
 
     }
