@@ -1,14 +1,8 @@
 ﻿@model TrumpNews.Models.Article
 
-<div class="panel panel-primary">
-    <div class="panel panel-heading">
-        <h4 class=" panel-title">
-
-            @Html.ActionLink(Model.Title, "PostDetails", new { id = Model.Id })
-        </h4>
-    </div>
-
-    <div class="panel panel-body">
-        <p class="">@Model.Body</p>
-    </div>
+<div class="panel well-sm">
+    <h4>@Html.ActionLink(Model.Title, "PostDetails", new { id = Model.Id })</h4>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
+    <p class="">@Model.Body</p>
+    <a class="" href='@Html.ActionLink(Model.Title, "PostDetails", new { id = Model.Id })'>More info</a>
 </div>

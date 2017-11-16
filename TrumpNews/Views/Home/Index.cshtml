@@ -4,23 +4,32 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            <img class="img-circle img-responsive" src="http://1000logos.net/wp-content/uploads/2016/11/CNN-Logo.png" style="height:80px;width:80px;padding:5px;" />
+            @foreach (var item in Model.Articles)
+            {
+                <div class="panel panel-default">
+                    @Html.Partial("_ArticlePartial", item)
 
-    <div class="col-md-7">
-        @foreach (var item in Model.Articles)
-        {
-            <div class="row">
-                @Html.Partial("_ArticlePartial", item)
-            </div>
-        }
-    </div>
-    <div class="col-md-5">
-        @foreach (var item in Model.Tweets)
-        {
-            <div class="row">
-                @Html.Partial("_TweetPartial", item)
-            </div>
-        }
-    </div>
+                </div>
+            }
 
+        </div>
+        <div class="col-sm-6">
+            <img class="img-circle img-responsive" src="http://www.pngmart.com/files/5/Twitter-Transparent-PNG.png" style="height:80px;width:80px; padding:5px;" />
+
+
+
+            @foreach (var item in Model.Tweets)
+            {
+                <div class="panel panel-default ">
+                    @Html.Partial("_TweetPartial", item)
+                </div>
+            }
+
+        </div>
+
+    </div>
 </div>

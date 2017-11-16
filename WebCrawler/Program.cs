@@ -7,7 +7,7 @@ namespace WebCrawler
         [STAThread]
         static void Main(string[] args)
         {
-            /*
+            
             #region CNN Crawler
 
             Console.WriteLine("Crawling CNN..");
@@ -17,7 +17,7 @@ namespace WebCrawler
                 NumberOfArticles = 25
             };
 
-            var x = cnn.GetSearchResult();
+            var x = cnn.CrawlCNNSearchResult();
 
             if (x != null)
             {
@@ -26,7 +26,7 @@ namespace WebCrawler
                     Console.WriteLine(item);
                 }
             }
-            #endregion*/
+            #endregion
 
             #region Twitter Crawler
             Console.WriteLine("Crawling Twitter..");
