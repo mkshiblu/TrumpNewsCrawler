@@ -42,7 +42,7 @@ namespace WebCrawler
         /// result items
         /// </summary>
         /// <returns></returns>
-        public List<Tweet> CrawlTweets()
+        public List<TwitterPost> CrawlTweets()
         {
             string url = constructURL();
 
@@ -93,10 +93,10 @@ namespace WebCrawler
             var tweetTexts = document.DocumentNode.SelectNodes("//p[contains(@class, 'tweet-text')]");
             if (tweetTexts != null)
             {
-                var tweets = new List<Tweet>();
+                var tweets = new List<TwitterPost>();
                 foreach (var item in tweetTexts)
                 {
-                    Tweet tweet = new Tweet();
+                    TwitterPost tweet = new TwitterPost();
 
                     // For now parse only text
                     tweet.Text = item.InnerText;

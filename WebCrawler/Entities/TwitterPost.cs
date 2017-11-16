@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebCrawler.Entities
 {
-    public class Tweet
+    public class TwitterPost
     {
         public int TweetId { get; set; }
         public string Text { get; set; }

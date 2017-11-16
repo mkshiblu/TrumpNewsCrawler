@@ -1,12 +1,26 @@
-﻿@model IEnumerable<TrumpNews.Models.Article>
+﻿@model TrumpNews.Models.TrumpNewsViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-@foreach (var item in Model)
-{
-    <div class="row">
-        @Html.Partial("_ArticlePostPartial", item);
+<div class="row">
+
+    <div class="col-md-7">
+        @foreach (var item in Model.Articles)
+        {
+            <div class="row">
+                @Html.Partial("_ArticlePartial", item)
+            </div>
+        }
     </div>
-}
+    <div class="col-md-5">
+        @foreach (var item in Model.Tweets)
+        {
+            <div class="row">
+                @Html.Partial("_TweetPartial", item)
+            </div>
+        }
+    </div>
+
+</div>

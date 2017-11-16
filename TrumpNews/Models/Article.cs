@@ -6,7 +6,7 @@ using System.Web;
 namespace TrumpNews.Models
 {
     /// <summary>
-    /// Represents a post or article
+    /// Represents a cnn article
     /// </summary>
     public class Article
     {
@@ -15,9 +15,6 @@ namespace TrumpNews.Models
         public string Body { get; set; }
 
         public DateTime PublishDate { get; set; }
-
-        // TODO use enum to represent twitter / cnn
-        public string Source { get; set; }
 
         // Original source URL 
         public string Url { get; set; }

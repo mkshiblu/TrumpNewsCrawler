@@ -11,22 +11,36 @@ namespace TrumpNews.Controllers
     public class HomeController : Controller
     {
         private CrawlingHelper crawlingHelper = new CrawlingHelper();
+
         public ActionResult Index()
         {
-            List<Article> articles = null;
+            TrumpNewsViewModel tnViewModel = new TrumpNewsViewModel();
             try
             {
-                // Get all articles and post regarding trump using crawler
+                List<Article> articles = null;
+                List<Tweet> tweets = null;
+
+                // Get all articles regarding trump using crawler
                 articles = crawlingHelper
                    .CrawlArticlesDemo()
                    .OrderByDescending(article => article.PublishDate).ToList();
+
+                // Get all tweets posted by trump
+                tweets = crawlingHelper
+                    .CrawlTweetsDemo()
+                    .OrderByDescending(t => t.PublishTime).ToList();
+
+                tnViewModel.Articles = articles;
+                tnViewModel.Tweets = tweets;
+
             }
             catch (Exception ex)
             {
-                return PartialView("Error", ex);
+                ViewBag.Error = ex.ToString();
+                return PartialView("Error");
             }
 
-            return View(articles);
+            return View(tnViewModel);
         }
 
 

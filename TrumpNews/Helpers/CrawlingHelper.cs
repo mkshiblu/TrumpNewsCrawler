@@ -10,10 +10,12 @@ namespace TrumpNews.Helpers
     public class CrawlingHelper
     {
         private CNNCrawler cnnCrawler;
+        private TwitterCrawler twitterCrawler;
 
         // TODO use dictionary or use db
         // Returns a cached version without re-crawling
         public List<Article> Articles { get; set; }
+        public List<Tweet> Tweets { get; set; }
 
         public string CNNSearchKeyword { get; set; }
         public string TwitterUserName { get; set; }
@@ -33,6 +35,12 @@ namespace TrumpNews.Helpers
                 Keyword = CNNSearchKeyword,
                 NumberOfArticles = NumberOfCNNArticles
             };
+
+            twitterCrawler = new TwitterCrawler()
+            {
+                UserName = TwitterUserName,
+                NumberOfTweets = NumberOfTwitterPosts
+            };
         }
 
         /// <summary>
@@ -41,11 +49,9 @@ namespace TrumpNews.Helpers
         /// <returns></returns>
         public List<Article> CrawlArticles()
         {
+
             // Create new articles for refreshing
-
             Articles = new List<Article>();
-
-            #region get cnn news
 
             // Set cnn variables
             cnnCrawler.Keyword = CNNSearchKeyword;
@@ -66,14 +72,10 @@ namespace TrumpNews.Helpers
                     Body = item.Body,
                     Url = item.URL,
                     PublishDate = item.PublishDate,
-                    Source = "CNN"
                 };
-            }
-            #endregion
 
-            #region get Twitter posts
-            // TODO
-            #endregion
+                Articles.Add(article);
+            }
 
             return Articles;
         }
@@ -89,9 +91,8 @@ namespace TrumpNews.Helpers
                 Id = 5,
                 Title = "Donald Trump 2",
                 Body = "Rohinga Issue",
-               // Url = item.URL,
+                // Url = item.URL,
                 //PublishDate = item.PublishDate,
-                Source = "CNN"
             });
 
             Articles.Add(new Article()
@@ -101,9 +102,55 @@ namespace TrumpNews.Helpers
                 Body = "Sen. Marco Rubio had a chance at payback Wednesday, when President Donald Trump noticeably sipped from a water boSen. Marco Rubio had a chance at payback Wednesday, when President Donald Trump noticeably sipped from a water bo",
                 Url = "//www.cnn.com/2017/11/15/politics/state-department-staff-mccain-shaheen/index.html",
                 PublishDate = DateTime.Now,
-                Source = "CNN"
             });
             return Articles;
+        }
+
+
+        public List<Tweet> CrawlTweets()
+        {
+            // Create new articles for refreshing
+            Tweets = new List<Tweet>();
+
+            // Set cnn variables
+            twitterCrawler.UserName = TwitterUserName;
+            twitterCrawler.NumberOfTweets = NumberOfTwitterPosts;
+
+            // Get the crawled items
+            var items = twitterCrawler.CrawlTweets();
+
+            foreach (var item in items)
+            {
+                Tweet t = new Tweet()
+                {
+                    Text = item.Text,
+                    PublishTime = item.TweetTime
+                };
+
+                Tweets.Add(t);
+            }
+
+            return Tweets;
+        }
+
+        public List<Tweet> CrawlTweetsDemo()
+        {
+            Tweets = new List<Tweet>();
+
+
+            Tweets.Add(new Tweet()
+            {
+                Text = "Thank you to our GREAT Military/Veterans and @PacificCommand. Remember #PearlHarbor. Remember the @USSArizona!"
+                // Url = item.URL,
+                //PublishDate = item.PublishDate,
+            });
+
+            Tweets.Add(new Tweet()
+            {
+                Text = "Thank you to our GREAT Military/Veterans and @PacificCommand. Remember #PearlHarbor. Remember the @USSArizona!",
+                PublishTime = DateTime.Now,
+            });
+            return Tweets;
         }
     }
 }
