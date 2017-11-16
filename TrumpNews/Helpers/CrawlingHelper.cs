@@ -52,7 +52,7 @@ namespace TrumpNews.Helpers
             cnnCrawler.NumberOfArticles = NumberOfCNNArticles;
 
             // Get the crawled items
-            var cnnItems = cnnCrawler.GetSearchResult();
+            var cnnItems = cnnCrawler.CrawlCNNSearchResult();
 
             // For incremental id
             int id = 0;

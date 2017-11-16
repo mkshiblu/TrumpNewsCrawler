@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Tweet.cs" />
+    <Compile Include="TwitterCrawler.cs" />
     <Compile Include="Entities\CNNSearchResultArticle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="CNNCrawler.cs" />

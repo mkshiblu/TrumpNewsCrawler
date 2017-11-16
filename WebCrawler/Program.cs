@@ -7,9 +7,10 @@ namespace WebCrawler
         [STAThread]
         static void Main(string[] args)
         {
-            // IronScrapperDemo.Start(null);
+            /*
+            #region CNN Crawler
 
-
+            Console.WriteLine("Crawling CNN..");
             CNNCrawler cnn = new CNNCrawler()
             {
                 Keyword = "Donald Trump",
@@ -25,6 +26,29 @@ namespace WebCrawler
                     Console.WriteLine(item);
                 }
             }
+            #endregion*/
+
+            #region Twitter Crawler
+            Console.WriteLine("Crawling Twitter..");
+
+            TwitterCrawler twitter = new TwitterCrawler()
+            {
+                UserName = "realDonaldTrump",
+                NumberOfTweets = 35
+            };
+
+            var items = twitter.CrawlTweets();
+
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            #endregion
+
             Console.WriteLine("Process End");
             Console.ReadKey();
         }

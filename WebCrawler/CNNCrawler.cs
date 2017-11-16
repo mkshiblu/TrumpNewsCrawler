@@ -48,7 +48,7 @@ namespace WebCrawler
         /// result items
         /// </summary>
         /// <returns></returns>
-        public List<CNNSearchResultArticle> GetSearchResult()
+        public List<CNNSearchResultArticle> CrawlCNNSearchResult()
         {
             string searchURL = constructSearchURL();
 
